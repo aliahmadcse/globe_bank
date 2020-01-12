@@ -1,6 +1,9 @@
 <?php require_once('../../../private/initialize.php'); ?>
 
 <?php
+
+$subject_set = find_all_subjects();
+
 $subjects = [
     ['id' => '1', 'position' => '1', 'visible' => '1', 'menu_name' => 'About Globe Bank'],
     ['id' => '2', 'position' => '2', 'visible' => '1', 'menu_name' => 'Consumer'],
@@ -48,5 +51,8 @@ $subjects = [
     </div>
 
 </div>
+<?php
+mysqli_free_result($subject_set);
+?>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
