@@ -39,8 +39,8 @@ $pages = [
           <td><?= $page['visible'] == '1' ? true : false; ?></td>
           <td><?= h($page['menu_name']) ?></td>
           <td><a href="<?= url_for('/staff/pages/show.php?id=') . h(u($page['id'])); ?>">Show</a></td>
-          <td><?= $page['id'] ?></td>
-          <td><?= $page['id'] ?></td>
+          <td><a href="">Edit</a></td>
+          <td><a href="">Delete</a></td>
         </tr>
       <?php endforeach; ?>
     </table>
