@@ -91,7 +91,7 @@ function find_page_by_id($id)
 {
     global $db;
     $sql = "SELECT * FROM pages ";
-    $sql .= "WHERE id='$id'";
+    $sql .= "WHERE id='" . $id . "'";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     $page = mysqli_fetch_assoc($result);
@@ -99,16 +99,56 @@ function find_page_by_id($id)
     return $page; //returns the assoc array of single page
 }
 
-function insert_page($menu_name, $position, $visible)
+function insert_page($page)
 {
+    //argument to this function is an associative array
     global $db;
     $sql = "INSERT INTO pages ";
-    $sql .= "(menu_name,position,visible) ";
+    $sql .= "(subject_id,menu_name,position,visible,content) ";
     $sql .= "VALUES (";
-    $sql .= "'" . $menu_name . "',";
-    $sql .= "'" . $position . "',";
-    $sql .= "'" . $visible . "'";
+    $sql .= "'" . $page['subject_id'] . "',";
+    $sql .= "'" . $page['menu_name'] . "',";
+    $sql .= "'" . $page['position'] . "',";
+    $sql .= "'" . $page['visible'] . "',";
+    $sql .= "'" . $page['content'] . "'";
     $sql .= ")";
+    $result = mysqli_query($db, $sql);
+    if ($result) {
+        return true;
+    } else {
+        echo mysqli_error($db);
+        db_disconnet($db);
+        exit;
+    }
+}
+
+function update_page($page)
+{
+    global $db;
+    $sql = "UPDATE subjects SET ";
+    $sql .= "subject_id='" . $page['subject_id'] . "',";
+    $sql .= "menu_name='" . $page['menu_name'] . "',";
+    $sql .= "position='" . $page['position'] . "',";
+    $sql .= "visible='" . $page['visible'] . "',";
+    $sql .= "content='" . $page['content'] . "' ";
+    $sql .= "WHERE id='" . $page['id'] . "' ";
+    $sql .= "LIMIT 1";
+    $result = mysqli_query($db, $sql);
+    if ($result) {
+        return true;
+    } else {
+        echo mysqli_error($db);
+        db_disconnet($db);
+        exit;
+    }
+}
+
+function delete_page($id)
+{
+    global $db;
+    $sql = "DELETE FROM pages ";
+    $sql .= "WHERE id='" . $id . "' ";
+    $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
     if ($result) {
         return true;
