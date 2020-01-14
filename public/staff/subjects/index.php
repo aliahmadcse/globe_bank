@@ -28,7 +28,7 @@ $subject_set = find_all_subjects();
                 <th>&nbsp;</th>
             </tr>
 
-            <?php while($subject=mysqli_fetch_assoc($subject_set)) { ?>
+            <?php while ($subject = mysqli_fetch_assoc($subject_set)) { ?>
                 <tr>
                     <!-- h id htmlspecialchars() -->
                     <td><?php echo h($subject['id']); ?></td>
@@ -37,7 +37,7 @@ $subject_set = find_all_subjects();
                     <td><?php echo h($subject['menu_name']); ?></td>
                     <td><a class="action" href="<?= url_for('/staff/subjects/show.php?id=') . h(u($subject['id'])); ?>">View</a></td>
                     <td><a class="action" href="<?= url_for('/staff/subjects/edit.php?id=') . h(u($subject['id'])); ?>">Edit</a></td>
-                    <td><a class="action" href="">Delete</a></td>
+                    <td><a class="action" href="<?= url_for('/staff/subjects/delete.php?id=' . h(u($subject['id']))); ?>">Delete</a></td>
                 </tr>
             <?php } ?>
         </table>
