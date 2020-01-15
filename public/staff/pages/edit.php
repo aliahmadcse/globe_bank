@@ -2,12 +2,12 @@
 
 require_once('../../../private/initialize.php');
 
-if(!isset($_GET['id'])) {
+if (!isset($_GET['id'])) {
   redirect_to(url_for('/staff/pages/index.php'));
 }
 $id = $_GET['id'];
 
-if(is_post_request()) {
+if (is_post_request()) {
 
   // Handle form values sent by new.php
 
@@ -20,17 +20,18 @@ if(is_post_request()) {
   $page['content'] = $_POST['content'] ?? '';
 
   $result = update_page($page);
-  redirect_to(url_for('/staff/pages/show.php?id=' . $id));
-
+  if ($result === true) {
+    redirect_to(url_for('/staff/pages/show.php?id=' . $id));
+  } else {
+    $errors = $result;
+  }
 } else {
-
   $page = find_page_by_id($id);
-
-  $page_set = find_all_pages();
-  $page_count = mysqli_num_rows($page_set);
-  mysqli_free_result($page_set);
-
 }
+
+$page_set = find_all_pages();
+$page_count = mysqli_num_rows($page_set);
+mysqli_free_result($page_set);
 
 ?>
 
@@ -43,23 +44,23 @@ if(is_post_request()) {
 
   <div class="page edit">
     <h1>Edit Page</h1>
-
+    <?php echo display_errors($errors); ?>
     <form action="<?php echo url_for('/staff/pages/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>Subject</dt>
         <dd>
           <select name="subject_id">
-          <?php
+            <?php
             $subject_set = find_all_subjects();
-            while($subject = mysqli_fetch_assoc($subject_set)) {
+            while ($subject = mysqli_fetch_assoc($subject_set)) {
               echo "<option value=\"" . h($subject['id']) . "\"";
-              if($page["subject_id"] == $subject['id']) {
+              if ($page["subject_id"] == $subject['id']) {
                 echo " selected";
               }
               echo ">" . h($subject['menu_name']) . "</option>";
             }
             mysqli_free_result($subject_set);
-          ?>
+            ?>
           </select>
         </dd>
       </dl>
@@ -72,13 +73,13 @@ if(is_post_request()) {
         <dd>
           <select name="position">
             <?php
-              for($i=1; $i <= $page_count; $i++) {
-                echo "<option value=\"{$i}\"";
-                if($page["position"] == $i) {
-                  echo " selected";
-                }
-                echo ">{$i}</option>";
+            for ($i = 1; $i <= $page_count; $i++) {
+              echo "<option value=\"{$i}\"";
+              if ($page["position"] == $i) {
+                echo " selected";
               }
+              echo ">{$i}</option>";
+            }
             ?>
           </select>
         </dd>
@@ -87,7 +88,9 @@ if(is_post_request()) {
         <dt>Visible</dt>
         <dd>
           <input type="hidden" name="visible" value="0" />
-          <input type="checkbox" name="visible" value="1"<?php if($page['subject_id'] == "1") { echo " checked"; } ?> />
+          <input type="checkbox" name="visible" value="1" <?php if ($page['subject_id'] == "1") {
+                                                            echo " checked";
+                                                          } ?> />
         </dd>
       </dl>
       <dl>

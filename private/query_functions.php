@@ -104,6 +104,10 @@ function update_subject($subject)
 function delete_subject($id)
 {
     global $db;
+    $errors = validate_delete_subject($id);
+    if (!empty($errors)) {
+        return $errors;
+    }
     $sql = "DELETE FROM subjects ";
     $sql .= "WHERE id='" . $id . "' ";
     $sql .= "LIMIT 1";
@@ -117,6 +121,16 @@ function delete_subject($id)
     }
 }
 
+function validate_delete_subject($id)
+{
+    $errors = [];
+    $result = has_any_assciated_page($id);
+    if ($result) {
+        $errors[] = "This subject cannot be deleted. It has 
+        associated pages";
+    }
+    return $errors;
+}
 function find_all_pages()
 {
     global $db;
@@ -139,10 +153,57 @@ function find_page_by_id($id)
     return $page; //returns the assoc array of single page
 }
 
+function validate_page($page)
+{
+    $errors = [];
+
+    if (is_blank($page['subject_id'])) {
+        $errors[] = "Subject id cannot be blank";
+    }
+    // menu_name
+    if (is_blank($page['menu_name'])) {
+        $errors[] = "Name cannot be blank.";
+    }
+
+    if (!has_length($page['menu_name'], ['min' => 2, 'max' => 255])) {
+        $errors[] = "Name must be between 2 and 255 characters.";
+    }
+
+    // position
+    // Make sure we are working with an integer
+    $postion_int = (int) $page['position'];
+    if ($postion_int <= 0) {
+        $errors[] = "Position must be greater than zero.";
+    }
+    if ($postion_int > 999) {
+        $errors[] = "Position must be less than 999.";
+    }
+
+    // visible
+    // Make sure we are working with a string
+    $visible_str = (string) $page['visible'];
+    if (!has_inclusion_of($visible_str, ["0", "1"])) {
+        $errors[] = "Visible must be true or false.";
+    }
+
+    if (is_blank($page['content'])) {
+        $errors[] = "Content cannot be blank";
+    }
+    $current_id = $page['id'] ?? '0';
+    if (!has_unique_page_menu_name($page["menu_name"], $current_id)) {
+        $errors[] = "Menu name must be unique";
+    }
+    return $errors;
+}
+
 function insert_page($page)
 {
     //argument to this function is an associative array
     global $db;
+    $errors = validate_page($page);
+    if (!empty($errors)) {
+        return $errors;
+    }
     $sql = "INSERT INTO pages ";
     $sql .= "(subject_id,menu_name,position,visible,content) ";
     $sql .= "VALUES (";
@@ -165,7 +226,11 @@ function insert_page($page)
 function update_page($page)
 {
     global $db;
-    $sql = "UPDATE subjects SET ";
+    $errors = validate_page($page);
+    if (!empty($errors)) {
+        return $errors;
+    }
+    $sql = "UPDATE pages SET ";
     $sql .= "subject_id='" . $page['subject_id'] . "',";
     $sql .= "menu_name='" . $page['menu_name'] . "',";
     $sql .= "position='" . $page['position'] . "',";
@@ -177,8 +242,9 @@ function update_page($page)
     if ($result) {
         return true;
     } else {
-        echo mysqli_error($db);
-        db_disconnet($db);
+        // echo mysqli_error($db);
+        // db_disconnet($db);
+        echo $sql;
         exit;
     }
 }

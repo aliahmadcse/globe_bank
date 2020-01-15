@@ -10,10 +10,13 @@ $id = $_GET['id'];
 
 if (is_post_request()) {
   $result = delete_subject($id);
-  redirect_to(url_for('/staff/subjects/index.php'));
-} else {
-  $subject = find_subject_by_id($id);
+  if ($result === true) {
+    redirect_to(url_for('/staff/subjects/index.php'));
+  } else {
+    $errors = $result;
+  }
 }
+$subject = find_subject_by_id($id);
 
 ?>
 
@@ -26,6 +29,7 @@ if (is_post_request()) {
 
   <div class="subject delete">
     <h1>Delete Subject</h1>
+    <?php echo display_errors($errors); ?>
     <p>Are you sure you want to delete this subject?</p>
     <p class="item"><?php echo h($subject['menu_name']); ?></p>
 
