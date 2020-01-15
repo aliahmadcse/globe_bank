@@ -107,8 +107,8 @@ function has_unique_page_menu_name($menu_name, $current_id = 0)
 {
   global $db;
   $sql = "SELECT * FROM pages ";
-  $sql .= "WHERE menu_name='" . $menu_name . "' ";
-  $sql .= "AND id!='" . $current_id . "'";
+  $sql .= "WHERE menu_name='" . db_escape($db,$menu_name) . "' ";
+  $sql .= "AND id!='" . db_escape($db,$current_id) . "'";
   $page_set = mysqli_query($db, $sql);
   $page_count = mysqli_num_rows($page_set);
   mysqli_free_result($page_set);
@@ -121,7 +121,7 @@ function has_any_assciated_page($subject_id)
 {
   global $db;
   $sql = "SELECT * FROM pages ";
-  $sql .= "WHERE subject_id='" . $subject_id . "'";
+  $sql .= "WHERE subject_id='" . db_escape($db,$subject_id) . "'";
   $page_set = mysqli_query($db, $sql);
   $page_count = mysqli_num_rows($page_set);
   mysqli_free_result($page_set);
