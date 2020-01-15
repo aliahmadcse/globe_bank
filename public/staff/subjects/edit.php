@@ -15,14 +15,19 @@ if (is_post_request()) {
     $subject['id'] = $id;
 
     $result = update_subject($subject);
-    redirect_to(url_for('/staff/subjects/show.php?id=' . $subject['id']));
+    if ($result === true) {
+        redirect_to(url_for('/staff/subjects/show.php?id=' . $subject['id']));
+    } else {
+        $errors = $result;
+        // var_dump($errors);
+    }
 } else {
     $subject = find_subject_by_id($id);
-
-    $subject_set = find_all_subjects();
-    $subject_count = mysqli_num_rows($subject_set);
-    mysqli_free_result($subject_set);
 }
+
+$subject_set = find_all_subjects();
+$subject_count = mysqli_num_rows($subject_set);
+mysqli_free_result($subject_set);
 ?>
 
 <?php $page_title = 'Edit Subject'; ?>
@@ -34,6 +39,8 @@ if (is_post_request()) {
 
     <div class="subject edit">
         <h1>Edit Subject</h1>
+
+        <?php echo display_errors($errors); ?>
 
         <form action=" <?= url_for('/staff/subjects/edit.php?id=' . h(u($id))); ?>" method="post">
             <dl>
