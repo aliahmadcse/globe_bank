@@ -9,7 +9,7 @@ function db_connect()
     return $connection;
 }
 
-function db_disconnet($connection)
+function db_disconnect($connection)
 {
     if (isset($connection)) {
         mysqli_close($connection);
