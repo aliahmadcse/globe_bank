@@ -73,7 +73,7 @@ function insert_subject($subject)
         return true;
     } else {
         echo mysqli_error($db);
-        db_disconnet($db);
+        db_disconnect($db);
         exit;
     }
 }
@@ -96,7 +96,7 @@ function update_subject($subject)
         return true;
     } else {
         echo mysqli_error($db);
-        db_disconnet($db);
+        db_disconnect($db);
         exit;
     }
 }
@@ -116,7 +116,7 @@ function delete_subject($id)
         return true;
     } else {
         echo mysqli_error($db);
-        db_disconnet($db);
+        db_disconnect($db);
         exit;
     }
 }
@@ -218,7 +218,7 @@ function insert_page($page)
         return true;
     } else {
         echo mysqli_error($db);
-        db_disconnet($db);
+        db_disconnect($db);
         exit;
     }
 }
@@ -260,7 +260,18 @@ function delete_page($id)
         return true;
     } else {
         echo mysqli_error($db);
-        db_disconnet($db);
+        db_disconnect($db);
         exit;
     }
+}
+
+function find_pages_by_subject_id($subject_id)
+{
+    global $db;
+    $sql = "SELECT * FROM pages ";
+    $sql .= "WHERE subject_id='" . db_escape($db, $subject_id) . "' ";
+    $sql .= "ORDER BY position ASC";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result; //returns the assoc array of related pages
 }
