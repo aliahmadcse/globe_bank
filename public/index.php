@@ -3,8 +3,10 @@
 <?php include(SHARED_PATH . '/public_header.php'); ?>
 
 <div id="main">
-    <div id="page">
+    <?php include(SHARED_PATH . '/public_navigation.php'); ?>
 
+    <div id="page">
+    
     </div>
 </div>
 
