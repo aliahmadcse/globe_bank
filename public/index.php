@@ -6,7 +6,7 @@
     <?php include(SHARED_PATH . '/public_navigation.php'); ?>
 
     <div id="page">
-    
+        <?php include(SHARED_PATH . '/static_homepage.php'); ?>
     </div>
 </div>
 
