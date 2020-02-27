@@ -1,10 +1,11 @@
 <?php
 $page_id = $page_id ?? '';
 $subject_id = $subject_id ?? '';
+$visible = $visible ?? true;
 ?>
 
 <navigation>
-  <?php $nav_subjects = find_all_subjects(['visible' => true]); ?>
+  <?php $nav_subjects = find_all_subjects(['visible' => $visible]); ?>
   <ul class="subjects">
     <?php while ($nav_subject = mysqli_fetch_assoc($nav_subjects)) { ?>
       <li class="<?php if ($nav_subject['id'] == $subject_id) {
@@ -15,7 +16,7 @@ $subject_id = $subject_id ?? '';
         </a>
 
         <?php if ($nav_subject['id'] == $subject_id) { ?>
-          <?php $nav_pages = find_pages_by_subject_id($nav_subject['id'], ['visible' => true]); ?>
+          <?php $nav_pages = find_pages_by_subject_id($nav_subject['id'], ['visible' => $visible]); ?>
           <ul class="pages">
             <?php while ($nav_page = mysqli_fetch_assoc($nav_pages)) { ?>
               <li class="<?php if ($nav_page['id'] == $page_id) {
