@@ -14,6 +14,7 @@ if (is_post_request()) {
   $result = insert_page($page);
   if ($result === true) {
     $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = "Page created successfully";
     redirect_to(url_for('/staff/pages/show.php?id=' . $new_id));
   } else {
     $errors = $result;
@@ -26,7 +27,6 @@ if (is_post_request()) {
   $page['position'] = '';
   $page['visible'] = '';
   $page['content'] = '';
-
 }
 $page_set = find_all_pages();
 $page_count = mysqli_num_rows($page_set) + 1;
