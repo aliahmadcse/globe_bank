@@ -11,6 +11,7 @@ $id = $_GET['id'];
 if (is_post_request()) {
   $result = delete_subject($id);
   if ($result === true) {
+    $_SESSION['message'] = "Subject deleted successfully";
     redirect_to(url_for('/staff/subjects/index.php'));
   } else {
     $errors = $result;
