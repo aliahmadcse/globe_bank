@@ -16,8 +16,10 @@
     <h1>GBI Staff Area</h1>
   </header>
 
-  <nav>
+  <navigation>
     <ul>
+      <li>User: <?php echo $_SESSION['username'] ?? ''; ?></li>
       <li><a href="<?= url_for('/staff/index.php') ?>">Menu</a></li>
+      <li><a href="<?= url_for('/staff/logout.php') ?>">Logout</a></li>
     </ul>
-  </nav>
+  </navigation>
