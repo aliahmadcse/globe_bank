@@ -46,7 +46,7 @@ if (isset($_GET['subject_id'])) {
     <div id="page">
         <?php
         if (isset($page)) {
-            $allowed_tags = "<div><p><br><h1><h2><img><strong><em><ul><li>";
+            $allowed_tags = "<div><p><br><h1><h2><img><strong><em><ul><li><a>";
             echo strip_tags($page['content'], $allowed_tags);
         } else {
             include(SHARED_PATH . '/static_homepage.php');
