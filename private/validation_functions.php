@@ -129,3 +129,23 @@ function has_any_assciated_page($subject_id)
 
   return $page_count !== 0;
 }
+
+// has_unique_username('johnqpublic')
+// * Validates uniqueness of admins.username
+// * For new records, provide only the username.
+// * For existing records, provide current ID as second argument
+//   has_unique_username('johnqpublic', 4)
+function has_unique_username($username, $current_id = "0")
+{
+  global $db;
+
+  $sql = "SELECT * FROM admins ";
+  $sql .= "WHERE username='" . db_escape($db, $username) . "' ";
+  $sql .= "AND id != '" . db_escape($db, $current_id) . "'";
+
+  $result = mysqli_query($db, $sql);
+  $admin_count = mysqli_num_rows($result);
+  mysqli_free_result($result);
+
+  return $admin_count === 0;
+}
