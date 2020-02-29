@@ -2,12 +2,15 @@
 
 require_once('../../../private/initialize.php');
 
-if(!isset($_GET['id'])) {
+require_login();
+
+
+if (!isset($_GET['id'])) {
   redirect_to(url_for('/staff/admins/index.php'));
 }
 $id = $_GET['id'];
 
-if(is_post_request()) {
+if (is_post_request()) {
   $admin = [];
   $admin['id'] = $id;
   $admin['first_name'] = $_POST['first_name'] ?? '';
@@ -18,7 +21,7 @@ if(is_post_request()) {
   $admin['confirm_password'] = $_POST['confirm_password'] ?? '';
 
   $result = update_admin($admin);
-  if($result === true) {
+  if ($result === true) {
     $_SESSION['message'] = 'Admin updated.';
     redirect_to(url_for('/staff/admins/show.php?id=' . $id));
   } else {

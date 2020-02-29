@@ -1,5 +1,7 @@
 <?php require_once('../../../private/initialize.php');
 
+require_login();
+
 $subject = [];
 
 if (is_post_request()) {

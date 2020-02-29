@@ -2,7 +2,9 @@
 
 require_once('../../../private/initialize.php');
 
-if(is_post_request()) {
+require_login();
+
+if (is_post_request()) {
   $subject = [];
   $admin['first_name'] = $_POST['first_name'] ?? '';
   $admin['last_name'] = $_POST['last_name'] ?? '';
@@ -12,14 +14,13 @@ if(is_post_request()) {
   $admin['confirm_password'] = $_POST['confirm_password'] ?? '';
 
   $result = insert_admin($admin);
-  if($result === true) {
+  if ($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = 'Admin created.';
     redirect_to(url_for('/staff/admins/show.php?id=' . $new_id));
   } else {
     $errors = $result;
   }
-
 } else {
   // display the blank form
   $admin = [];
