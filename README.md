@@ -72,3 +72,5 @@ Public interface is intended for common viewer
             public.css
             staff.css
 ```
+
+## Setting up the project
