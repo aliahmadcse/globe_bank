@@ -76,8 +76,7 @@ Public interface is intended for common viewer
 ## Setting up the project
 
 
-
-
 ## Admin Access
 User name: johndoedev
+
 Password: Johndoe@12345
