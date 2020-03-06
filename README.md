@@ -16,13 +16,15 @@ related to subjects and pages.
 
 This project has public as well as admin interfaces. Public interface is intended for normal user which you can access by typing `localhost/globe_bank/public` in your browser address bar.
 
-Public interface is intended for common viewer
+Public interface lists all the visible subjects in the navbar and visible pages as Sub-Menus.
 
 ## Admin Access
 
+You can access the admin interface by typing the address ``` localhost/globe_bank/public/staff ```. It will redirect you to a login page. Login by using the below credentials.
+```
 User name: johndoedev
-
 Password: Johndoe@12345
+```
 
 ## Directory and File structure
 
