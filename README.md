@@ -1,8 +1,20 @@
 ## Globe Bank
 
-Globe bank is a content management system, for subjects and pages.
+Globe bank is a content management system for managing content
+related to subjects and pages.
 
-It has public as well as admin interface.
+![Globe Bank](public/images/docs/ss_globe_bank.png)
+
+## Set Up Project
+
+- Download the project repository from github.
+- Extract the zip file and move the project repository into server's (xampp or wamp) web root folder.
+- Import the database file (globe_bank.sql) into your server.
+- Start your server and type 'localhost/globe_bank/public' to view the site.
+
+## Description
+
+This project public as well as admin interface.
 
 Public interface is intended for common viewer
 
