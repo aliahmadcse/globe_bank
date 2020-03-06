@@ -30,9 +30,10 @@ if (is_post_request()) {
   $page['visible'] = '';
   $page['content'] = '';
 }
-$page_set = find_all_pages();
-$page_count = mysqli_num_rows($page_set) + 1;
-mysqli_free_result($page_set);
+
+
+
+$page_count = count_pages_by_subject_id($page['subject_id']) + 1;
 $page['position'] = $page_count;
 
 ?>
@@ -42,7 +43,7 @@ $page['position'] = $page_count;
 
 <div id="content">
 
-  <a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?id='.h(u($page['subject_id']))); ?>">&laquo; Back to List</a>
+  <a class="back-link" href="<?php echo url_for('/staff/subjects/show.php?id=' . h(u($page['subject_id']))); ?>">&laquo; Back to List</a>
 
   <div class="page new">
     <h1>Create Page</h1>
