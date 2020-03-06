@@ -20,11 +20,14 @@ Public interface lists all the visible subjects in the navbar and visible pages 
 
 ## Admin Access
 
-You can access the admin interface by typing the address ``` localhost/globe_bank/public/staff ```. It will redirect you to a login page. Login by using the below credentials.
+You can access the admin interface by typing the address `localhost/globe_bank/public/staff`. It will redirect you to a login page. Login by using the below credentials.
+
 ```
 User name: johndoedev
 Password: Johndoe@12345
 ```
+
+The admin interface is the place where you can add, edit or delete subject, pages and manage admins. You can view pages associated with a particular subject by clicking the view menu in the subjects table.
 
 ## Directory and File structure
 
