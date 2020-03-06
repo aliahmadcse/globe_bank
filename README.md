@@ -5,18 +5,26 @@ related to subjects and pages.
 
 ![Globe Bank](public/images/docs/ss_globe_bank.png)
 
-## Set Up Project
+## Setting Up Project Locally
 
 - Download the project repository from github.
 - Extract the zip file and move the project repository into server's (xampp or wamp) web root folder.
 - Import the database file (globe_bank.sql) into your server.
-- Start your server and type 'localhost/globe_bank/public' to view the site.
+- Start your server and type `localhost/globe_bank/public` to view the site.
 
 ## Description
 
-This project public as well as admin interface.
+This project has public as well as admin interfaces. Public interface is intended for normal user which you can access by typing `localhost/globe_bank/public` in your browser address bar.
 
 Public interface is intended for common viewer
+
+## Admin Access
+
+User name: johndoedev
+
+Password: Johndoe@12345
+
+## Directory and File structure
 
 ```
 │
@@ -84,14 +92,6 @@ Public interface is intended for common viewer
             public.css
             staff.css
 ```
-
-## Setting up the project
-
-## Admin Access
-
-User name: johndoedev
-
-Password: Johndoe@12345
 
 ## Database ERD
 
